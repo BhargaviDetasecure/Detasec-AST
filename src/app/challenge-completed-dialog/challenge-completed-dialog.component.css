@@ -1,0 +1,20 @@
+.dialog-ok-button{
+  background-color: #F5921C;
+  color:#ffffff;
+  padding-right: 40px;
+  padding-left: 40px;
+  padding-top:10px;
+  padding-bottom:10px;
+  border:0px;
+  border-radius: 5px;
+  margin:10px;
+}
+
+.dialog-ok-button:focus{
+    outline: 0;
+}
+
+.close-button{
+    border-radius:50%;
+    width:30px;
+}

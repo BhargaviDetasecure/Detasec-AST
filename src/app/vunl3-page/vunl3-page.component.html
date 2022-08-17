@@ -1,0 +1,160 @@
+<ngx-spinner></ngx-spinner>
+
+<div class="vh-100" id="3">
+    <div class="nav-color d-flex justify-content-between p-3">
+        <div class="col-4">
+            <img src="../../assets/images/Logo DAST 1.png" height="50" />
+        </div>
+        <div class="d-flex col-md-3 justify-content-end">
+            <div class="ngb-progressbar col-md-3">
+                <ngb-progressbar type="success" height="20px"
+                    textType="white" value={{this.totalProgress}}
+                    [showValue]="true"></ngb-progressbar>
+            </div>
+            <div class="back-button col-md-" [routerLink]="['/']">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                Back
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="row m-0" *ngIf="isPage1" id="firstPageButton">
+            <div class="col-md-4 vulnerable-desc p-4">
+                <div class="text-white vulnerable-heading pl-0 pb-3 pt-2">
+                   3.Missing signer checks:
+                </div>
+                <div class="text-white description-scroll">
+                    <p>
+                        Smart contracts usually contain a lot of different functionalities, some of which are restricted to high-privileged users. These might include the ability to transfer the contract’s ownership to someone else, temporarily or permanently lock the smart contract etc.
+                    </p>
+                    <p>
+                        If the contract does not sufficiently verify that the account calling such functionality does indeed belong to the contract admin/creator, then an attacker could potentially misuse it.
+                    </p>
+                    <p>
+                        Here, we are checking to see if the contract owner is actually the account that signed the transaction.
+                    </p>
+                </div>
+                <div class="button">
+                    <button class="button-style"
+                        (click)="onClickButton('fourthPageButton')">
+                        Next
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-8 d-flex justify-content-center
+                align-items-center">
+                <div class="vulnerable-code">
+                    <div class="header d-flex align-items-center">
+                        <i class="fa fa-code fa-x p-1"></i>
+                        <span style="font-weight:bold"> code</span>
+                    </div>
+                    <pre  class="text-black">
+
+    <b>Vulnerable Code:</b>
+      let old_owner = next_account_info(account_info_iter)?;
+      let app_info = next_account_info(account_info_iter)?;
+      let mut app = App::unpack(&app_info.data.borrow())?;
+      if &app.owner != old_owner.key 
+       {{'{'}}
+         return Err(LendingError::InvalidAppOwner.into());
+       }
+       app.owner = new_owner;
+    
+    <b class="">Example of fixed code:</b><br>
+       let old_owner = next_account_info(account_info_iter)?;
+       let app_info = next_account_info(account_info_iter)?;
+       let mut app = App::unpack(&app_info.data.borrow())?;
+       if &app.owner != old_owner.key 
+        {{'{'}}
+          return Err(LendingError::InvalidAppOwner.into());
+        }
+       If !old_owner.is_signer
+       {{'{'}}
+         return Err(ProgramError::MissingSigner);
+       }
+       app.owner = new_owner;
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row m-0" *ngIf="isPage4" id="fourthPageButton">
+            <div class="col-md-4 vulnerable-desc p-4">
+                <div class="text-white vulnerable-heading pl-0 pb-3 pt-2">
+                   3.Test Your Skills:
+                </div>
+                <div class="text-white description-scroll">
+                    <p>
+                        Now that you know how to combat missing signer checks in Solana, here’s a challenge to test your skills.
+                    </p>
+                    <p>
+                        Alongside is a snippet of vulnerable Solana code.
+                    </p>
+                </div>
+                <div>
+                    <div class="button-right">
+                        <button class="button-style"
+                            (click)="onClickButton('firstPageButton')">
+                            previous
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 d-flex justify-content-center align-items-center">
+                <div class="vulnerable-code">
+                    <div class="header d-flex align-items-center">
+                        <i class="fa fa-code fa-x p-1"></i>
+                        <span style="font-weight:bold"> code</span>
+                    </div>
+                    <div class="p-3">
+                    <div>
+                        <div class="d-flex justify-content-center" style="color:#F5921C; font-size: 30px;">
+                            <b>Try to fix the vulnerability in code. Good luck!</b>
+                        </div>
+                        <span class="d-flex justify-content-center" style="font-weight:bold">
+                            (Insert one line of code to fix the vulnerability.)
+                        </span>
+                    </div>
+                        <pre class="m-0">
+    fn update_admin(program_id: &Pubkey, accounts: &[AccountInfo]) -> ProgramResult {{'{'}}
+    let account_iter = &mut accounts.iter();
+    let config = ConfigAccount::unpack(next_account_info(account_iter)?)?;
+    let admin = next_account_info(account_iter)?;
+    let new_admin = next_account_info(account_iter)?;
+                        
+    /** Validate the config account...  **/
+    if admin.pubkey() != config.admin {{'{'}}
+      return Err(ProgramError::InvalidAdminAccount);
+    }config.admin = new_admin.pubkey();
+    Ok(()) }                     
+         </pre>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        Enter your Code Here:
+                    </div>
+                    <div class="text-white pt-3 d-flex justify-content-center"
+                        style="width:100%;">
+                        <textarea  rows="3" style="width:70%"
+                            (input)="sendTheNewValue($event)">
+                        </textarea>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button class="upload" (click)="uploadFileOnClick()">
+                            Check The Result
+                        </button>
+                    </div>
+                    <div *ngIf="displayOutput" class="d-flex
+                        justify-content-center">
+                        The output you have entered is:
+                        <div [ngClass]="{
+                            'positive' : output =='success!!!',
+                            'negative' : output !='success!!!'
+                            }">
+                            {{ output }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    

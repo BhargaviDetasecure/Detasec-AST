@@ -1,0 +1,124 @@
+.header-image{
+    position:relative;
+    color:#ffffff;
+    padding:0px;
+    margin:0px;
+    width:100% !important;
+    height: 700px;
+ }
+
+.hero-section {
+    position: relative;
+    text-align: center;
+    width:100% !important;
+ }
+  
+  .heading {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .button-wrapper{
+    display: flex;
+    justify-content: center !important;
+    cursor: pointer;
+  }
+
+  .heading-color{
+    color:#F5921C;
+    font-size:40px;
+    font-weight:bold;
+  }
+
+  .hero-text{
+    font-size:20px;
+    color:#ffffff;
+  }
+
+  .hero-button{
+    background-color: #F5921C;
+    color:#ffffff;
+    padding-right: 40px;
+    padding-left: 40px;
+    padding-top:10px;
+    padding-bottom:10px;
+    border:0px;
+    border-radius: 10px;
+    margin:10px;
+  }
+
+  .vulnerability1-image{
+    cursor: pointer;
+    width:300px;
+    height:300px;
+  }
+
+  .vulnerability1-image:hover{
+    border: 5px solid #F5921C;
+  }
+  .vulnerability1-image:hover + h2.font-color{
+      color:#F5921c
+  }
+
+  .h2 {
+    font-weight: 300;
+    transition: color 1s ease;
+  }
+  .vulnerability1{
+    margin: 48px;
+  }
+  .vulnerability2{
+    margin: 48px;
+  }
+
+  @media screen and (min-width: 350px) and (max-width:900px) {
+    
+    .heading-color{
+      margin-top:20px;
+      color:#F5921C;
+      font-size:20px;
+      font-weight:bold;
+    }
+    .hero-text{
+      font-size:13px;
+      color:#ffffff;
+    }
+    .header-image{
+      height: 500px;
+  }
+    .vulnerability1-image{
+      width:180px;
+      height:100px;
+    }
+    .h1-size{
+      font-size: 15px;
+    }
+    .vulnerability1{
+      margin: 10px;
+    }
+    .vulnerability2{
+      margin: 10px;
+    }
+  }
+
+  @media screen and (max-width:900px) {
+    
+    .vulnerability1-image{
+      width:350px;
+      height:150px;
+    }
+    .h1-size{
+      font-size: 15px;
+    }
+    .vulnerability1{
+      margin: 10px;
+    }
+    .vulnerability2{
+      margin: 10px;
+    }
+  }
+
+
+  

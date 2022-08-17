@@ -1,0 +1,164 @@
+<ngx-spinner></ngx-spinner>
+
+<div class="vh-100" id="4">
+    <div class="nav-color d-flex justify-content-between p-3">
+        <div class="col-4">
+            <img src="../../assets/images/Logo DAST 1.png" height="50" />
+        </div>
+        <div class="d-flex col-md-3 justify-content-end">
+            <div class="ngb-progressbar col-md-3">
+                <ngb-progressbar type="success" height="20px"
+                    textType="white" value={{this.totalProgress}}
+                    [showValue]="true"></ngb-progressbar>
+            </div>
+            <div class="back-button col-md-" [routerLink]="['/']">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                Back
+            </div>
+        </div>
+    </div>
+<div>
+    <div class="row m-0" *ngIf="isPage1" id="firstPageButton">
+        <div class="col-md-4 vulnerable-desc p-4">
+            <div class="text-white vulnerable-heading pl-0 pb-3 pt-2">
+                4.Missing ownership checks:
+            </div>
+            <div class="text-white description-scroll">
+                <p>
+                    When dealing with Solana, the term ‘owner’ is different when compared to EVM chains. Here, owner means a program which has the privileges to modify data stored in an account. By default, the System program is set to be the owner of the accounts, while the user is the ‘holder’ of the account.
+                </p>
+                <p>
+                    If you find that the owner of an account is someone other than what is expected, that account is suspicious and might be controlled by an attacker.
+                </p>
+                <p>
+                    If ownership checks are not implemented, attackers can use fake configurations to access privileged functionality.
+                </p>
+                <p>
+                    In Solana contracts, sometimes the admin account’s public key is stored using a config account.
+                </p>
+                <p>
+                    In case the contract does not verify the owner of this config account, an attacker may be able to exploit the contract’s functionality.
+                </p>
+                <p>
+                    Now, let’s take a closer look at the issue with the help of a vulnerable code snippet:
+                </p>
+            </div>
+            <div class="button">
+                <button class="button-style"
+                    (click)="onClickButton('fourthPageButton')">
+                    Next
+                </button>
+            </div>
+        </div>
+        <div class="col-md-8 d-flex justify-content-center align-items-center">
+            <div class="vulnerable-code">
+                <div class="header d-flex align-items-center">
+                    <i class="fa fa-code fa-x p-1"></i>
+                    <span style="font-weight:bold"> code</span>
+                </div>
+                <pre  class="text-black">
+
+    <b>Vulnerable Code:</b>
+         fn withdraw(program_id: &Pubkey, accounts: &[AccountInfo], amount: u64) -> ProgramResult 
+         {{'{'}}
+           let account_iter = &mut accounts.iter(); 
+           let lend = next_account_info(account_iter)?;
+           let target = next_account_info(account_iter)?; 
+           let config = ConfigAccount::unpack(next_account_info(account_iter)?)?;
+           let vault_authority = next_account_info(account_iter)?; 
+           // Transfer funds from lend to target 
+           Ok(()) 
+         }
+    
+    <b class="">Example of fixed code:</b>
+         fn withdraw(program_id: &Pubkey, accounts: &[AccountInfo], amount: u64) -> ProgramResult {{'{'}}
+           let account_iter = &mut accounts.iter(); 
+           let lend = next_account_info(account_iter)?;
+           let target = next_account_info(account_iter)?; 
+           let config = ConfigAccount::unpack(next_account_info(account_iter)?)?;
+           let vault_authority = next_account_info(account_iter)?; 
+           if config.owner != program_id {{'{'}}
+           return Err(ProgramError::InvalidConfigAccount); }
+           // Transfer funds from lend to target 
+           Ok(()) 
+         }
+                    </pre>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row m-0" *ngIf="isPage4" id="fourthPageButton">
+        <div class="col-md-4 vulnerable-desc p-4">
+            <div class="text-white vulnerable-heading pl-0 pb-3 pt-2">
+               4.Test Your Skills:
+            </div>
+            <div class="text-white description-scroll">
+                <p>
+                    Now that you know how to combat integer overflows and underflows in solana, here’s a challenge to test your skills.                     
+                </p>
+                <p>
+                    Alongside is a snippet of vulnerable Solana code.
+                </p>
+            </div>
+            <div>
+                <div class="button-right">
+                    <button class="button-style"
+                        (click)="onClickButton('firstPageButton')">
+                        previous
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 d-flex justify-content-center align-items-center">
+            <div class="vulnerable-code">
+                <div class="header d-flex align-items-center">
+                    <i class="fa fa-code fa-x p-1"></i>
+                    <span style="font-weight:bold"> code</span>
+                </div>
+                <div class="p-3">
+                <div>
+                    <div class="d-flex justify-content-center" style="color:#F5921C; font-size: 30px;">
+                        <b>Try to fix the vulnerability in code. Good luck!</b>
+                    </div>
+                    <span class="d-flex justify-content-center" style="font-weight:bold">
+                        (Only enter the line of code which needs to be fixed).
+                    </span>
+                </div><br>
+                    <pre class="m-0">
+   fn subtract(&mut self, account: &Pubkey, notes_amount: Number) -> ProgramResult 
+     {{'{'}}
+         let position = self.position_mut(account)?;
+         position.amount -= notes_amount;  → Vulnerable line
+         Ok(())
+     }                      
+     </pre>
+                </div>
+                <div class="d-flex justify-content-center">
+                    Enter your Code Here:
+                </div>
+                <div class="text-white pt-3 d-flex justify-content-center"
+                    style="width:100%;">
+                    <br>
+                    <textarea class="text-gray-900" rows="5" style="width:70%"
+                        (input)="sendTheNewValue($event)">
+                    </textarea>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button class="upload" (click)="uploadFileOnClick()">
+                        Check The Result
+                    </button>
+                </div>
+                <div *ngIf="displayOutput" class="d-flex
+                    justify-content-center">
+                    The output you have entered is:
+                    <div [ngClass]="{
+                        'positive' : output =='success!!!',
+                        'negative' : output !='success!!!'
+                        }">
+                        {{ output }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
