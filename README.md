@@ -1,3 +1,24 @@
+# Description
+Solana blockchain has a limited number of learning resources. Due to a lack of resources, we came up with the idea of __"learning solana security in an interactive way."__ DAST is an interactive platform where you will first learn about a vulnerability, then solve an exercise containing vulnerable code, and you must write the correct code to win.
+
+# Steps to run the application
+1) Enter into the project directory
+```
+ cd solana_hackathon
+```
+2) Activate the environment 
+ ```
+  source env/bin/activate
+ ```
+3) Run the application
+```
+ python3 solana_hackathon.py
+```
+4) Navigate to the following ip
+```
+http://68.183.132.55/
+```
+
 # HackthonProject
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.2.
