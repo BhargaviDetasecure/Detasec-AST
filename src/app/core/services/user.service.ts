@@ -36,5 +36,26 @@ export class UserService {
           })
         );
   }
+  uploadFile3(userEnteredValue: any) {
+    let params = new HttpParams().set('user_input2', userEnteredValue);
+    return this.http.post(`${this.API_END_POINT}${apiConfig.upload.vuln3}`,{} ,{params})
+        .pipe(
+          map((res: any) => res),
+          catchError((err: any) => {
+            return throwError(err.error);
+          })
+        );
+  }
+  
+  uploadFile4(userEnteredValue: any) {
+    let params = new HttpParams().set('user_input3', userEnteredValue);
+    return this.http.post(`${this.API_END_POINT}${apiConfig.upload.vuln4}`,{} ,{params})
+        .pipe(
+          map((res: any) => res),
+          catchError((err: any) => {
+            return throwError(err.error);
+          })
+        );
+  }
 
 }

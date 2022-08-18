@@ -35,13 +35,14 @@ export class Vunl4PageComponent implements OnInit {
   }
 
   calculateProgress(){
-    if(localStorage.getItem('1')){
+    this.totalProgress=0;
+    if(localStorage.getItem('4')){
       this.totalProgress +=25;
     }if(localStorage.getItem('2')){
       this.totalProgress +=25;
     }if(localStorage.getItem('3')){
       this.totalProgress +=25;
-    }if(localStorage.getItem('4')){
+    }if(localStorage.getItem('1')){
       this.totalProgress +=25;
     }if(this.totalProgress ==100){
       this.dialog.open(ChallengeCompletedDialogComponent,{
@@ -61,7 +62,7 @@ export class Vunl4PageComponent implements OnInit {
   uploadFileOnClick(){
     this.displayOutput= false;
     this.spinner.show();
-    this.userService.uploadFile(this.userEnteredValue).
+    this.userService.uploadFile4(this.userEnteredValue).
     pipe(finalize(() => this.spinner.hide())).subscribe((data) =>{
       this.output = data;
         this.isShowSpinner = true;

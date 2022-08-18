@@ -34,6 +34,7 @@ export class ResultPageComponent implements OnInit {
   }
 
   calculateProgress(){
+    this.totalProgress=0;
     if(localStorage.getItem('1')){
       this.totalProgress +=25;
     }if(localStorage.getItem('2')){

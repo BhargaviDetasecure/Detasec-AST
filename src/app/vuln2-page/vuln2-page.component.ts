@@ -34,9 +34,10 @@ export class Vuln2PageComponent implements OnInit {
   }
 
   calculateProgress(){
-    if(localStorage.getItem('1')){
+    this.totalProgress=0;
+    if(localStorage.getItem('2')){
       this.totalProgress +=25;
-    }if(localStorage.getItem('2')){
+    }if(localStorage.getItem('1')){
       this.totalProgress +=25;
     }if(localStorage.getItem('3')){
       this.totalProgress +=25;
