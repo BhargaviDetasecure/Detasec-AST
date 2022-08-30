@@ -119,3 +119,16 @@ color: green;
 color: red;
 }
 
+.showAnswer-color{
+  color:blue;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.Answer-color{
+  color:green;
+}
+
+.align-answer{
+  margin: 50px;
+}

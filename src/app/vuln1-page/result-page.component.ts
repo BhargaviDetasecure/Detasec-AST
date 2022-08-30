@@ -22,6 +22,8 @@ export class ResultPageComponent implements OnInit {
   public displayOutput =false;
   public isShowSpinner = false;
   totalProgress =0;
+  isShowAnswer = false;
+  showDetailedAnswer = false;
   isExtraSmall: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.XSmall);
   isSmall: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Small);
 
@@ -31,6 +33,9 @@ export class ResultPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(localStorage.getItem('isAnswerShown')){
+      this.showDetailedAnswer = true;
+    }
   }
 
   calculateProgress(){
@@ -42,7 +47,7 @@ export class ResultPageComponent implements OnInit {
     }if(localStorage.getItem('3')){
       this.totalProgress +=25;
     }if(localStorage.getItem('4')){
-      this.totalProgress +=25;
+      this.totalProgress +=25; 
     }if(this.totalProgress ==100){
       this.dialog.open(ChallengeCompletedDialogComponent,{
         width:'500px',
@@ -60,17 +65,24 @@ export class ResultPageComponent implements OnInit {
 
   uploadFileOnClick(){
     this.displayOutput= false;
+    this.isShowAnswer= false;
     this.spinner.show();
     this.userService.uploadFile(this.userEnteredValue).
     pipe(finalize(() => this.spinner.hide())).subscribe((data) =>{
       this.output = data;
         this.isShowSpinner = true;
         this.displayOutput= true;
+        this.isShowAnswer= true;
         if(this.output == 'Success!!!'){
           localStorage.setItem('1', 'true');
           this.calculateProgress();
         }
     })
+  }
+
+  isShowAnswerOnClick(){
+    this.showDetailedAnswer = true;
+    localStorage.setItem('isAnswerShown', 'true');
   }
 
   onClickButton(id: any){

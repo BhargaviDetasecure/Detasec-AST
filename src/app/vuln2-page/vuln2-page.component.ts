@@ -22,6 +22,9 @@ export class Vuln2PageComponent implements OnInit {
   displayOutput: boolean =false;
   public isShowSpinner = false;
   totalProgress =0;
+  isShowAnswer = false;
+  showDetailedAnswer = false;
+ 
   isExtraSmall: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.XSmall);
   isSmall: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Small);
 
@@ -31,6 +34,14 @@ export class Vuln2PageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(localStorage.getItem('isAnswerShown1')){
+      this.showDetailedAnswer = true;
+    }
+  }
+
+  isShowAnswerOnClick(){
+    this.showDetailedAnswer = true;
+    localStorage.setItem('isAnswerShown1', 'true');
   }
 
   calculateProgress(){
@@ -59,6 +70,8 @@ export class Vuln2PageComponent implements OnInit {
   }
 
   uploadFileOnClick(){
+    this.displayOutput= false;
+    this.isShowAnswer= false;
     this.spinner.show();
     this.userService.uploadFile2(this.userEnteredValue).
     pipe(finalize(() => this.spinner.hide())).subscribe((data) =>{
@@ -66,6 +79,7 @@ export class Vuln2PageComponent implements OnInit {
         console.log(this.output)
         this.isShowSpinner = true;
         this.displayOutput= true;
+        this.isShowAnswer= true;
         if(this.output == 'Success!!!'){
           localStorage.setItem('2', 'true');
           this.calculateProgress()

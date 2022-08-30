@@ -22,6 +22,8 @@ export class Vunl4PageComponent implements OnInit {
   public displayOutput =false;
   public isShowSpinner = false;
   totalProgress =0;
+  isShowAnswer = false;
+  showDetailedAnswer = false;
 
   isExtraSmall: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.XSmall);
   isSmall: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Small);
@@ -32,6 +34,14 @@ export class Vunl4PageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(localStorage.getItem('isAnswerShown3')){
+      this.showDetailedAnswer = true;
+    }
+  }
+
+  isShowAnswerOnClick(){
+    this.showDetailedAnswer = true;
+    localStorage.setItem('isAnswerShown3', 'true');
   }
 
   calculateProgress(){
@@ -61,12 +71,14 @@ export class Vunl4PageComponent implements OnInit {
 
   uploadFileOnClick(){
     this.displayOutput= false;
+    this.isShowAnswer= false;
     this.spinner.show();
     this.userService.uploadFile4(this.userEnteredValue).
     pipe(finalize(() => this.spinner.hide())).subscribe((data) =>{
       this.output = data;
         this.isShowSpinner = true;
         this.displayOutput= true;
+        this.isShowAnswer= true;
         if(this.output == 'Success!!!'){
           localStorage.setItem('4', 'true');
           this.calculateProgress()
