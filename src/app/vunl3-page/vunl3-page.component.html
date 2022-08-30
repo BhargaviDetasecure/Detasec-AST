@@ -102,12 +102,12 @@
                 </div>
             </div>
             <div class="col-md-8 d-flex justify-content-center align-items-center">
-                <div class="vulnerable-code">
+                <div class="vulnerable-code ">
                     <div class="header d-flex align-items-center">
                         <i class="fa fa-code fa-x p-1"></i>
                         <span style="font-weight:bold"> code</span>
                     </div>
-                    <div class="p-3">
+                    <div class="p-1">
                     <div>
                         <div class="d-flex justify-content-center" style="color:#F5921C; font-size: 30px;">
                             <b>Try to fix the vulnerability in code. Good luck!</b>
@@ -121,14 +121,12 @@
     let account_iter = &mut accounts.iter();
     let config = ConfigAccount::unpack(next_account_info(account_iter)?)?;
     let admin = next_account_info(account_iter)?;
-    let new_admin = next_account_info(account_iter)?;
-                        
+    let new_admin = next_account_info(account_iter)?;                   
     /** Validate the config account...  **/
     if admin.pubkey() != config.admin {{'{'}}
       return Err(ProgramError::InvalidAdminAccount);
     }config.admin = new_admin.pubkey();
-    Ok(()) }                     
-         </pre>
+    Ok(()) }</pre>
                     </div>
                     
                 <div *ngIf="!showDetailedAnswer">
@@ -167,7 +165,6 @@
                             
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
