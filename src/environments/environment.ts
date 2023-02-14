@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   // API_URL: 'http://68.183.132.55:8000'
-  API_URL: 'http://35.154.210.165:8000'
+  // API_URL: 'http://13.232.87.130:8000',
+  API_URL: 'http://4.188.234.103:8000'
 };
 
 /*
